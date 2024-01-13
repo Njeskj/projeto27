@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Amigo Secreto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Sorteio de Amigo Secreto</h2>
+
+    <label for="nomes">Digite os nomes (separados por vírgula):</label><br>
+    <textarea id="nomes" rows="4" cols="50"></textarea>
+
+    <br>
+
+    <button onclick="sortearAmigoSecreto()">Sortear</button>
+
+    <h3>Resultado do Sorteio:</h3>
+    <div id="resultado"></div>
+
+    <script>
+        function sortearAmigoSecreto() {
+            // Obter os nomes do textarea
+            var nomes = document.getElementById("nomes").value.split(',');
+
+            // Remover espaços em branco ao redor dos nomes
+            nomes = nomes.map(nome => nome.trim());
+
+            // Embaralhar os nomes
+            nomes = shuffleArray(nomes);
+
+            // Exibir o resultado
+            exibirResultado(nomes);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function exibirResultado(nomes) {
+            var resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = "";
+
+            for (var i = 0; i < nomes.length; i++) {
+                var paragrafo = document.createElement("p");
+                paragrafo.textContent = nomes[i] + " tirou " + nomes[(i + 1) % nomes.length];
+                resultadoDiv.appendChild(paragrafo);
+            }
+        }
+    </script>
+
+</body>
+</html>
